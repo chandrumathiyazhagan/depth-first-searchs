@@ -11,8 +11,11 @@ Step 1: Initially, stack and visited arrays are empty.
  ![image](https://github.com/natsaravanan/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/87870499/640b3c6f-3ac1-49a2-a955-68da9a71f446)
 
 
+
 Queue and visited arrays are empty initially.
+
 Stack and visited arrays are empty initially.
+
 Step 2: Visit 0 and put its adjacent nodes which are not visited yet into the stack.
  ![image](https://github.com/natsaravanan/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/87870499/86dcf7d9-1f9d-49b0-a821-5976a6e77606)
 
@@ -54,57 +57,69 @@ Now, the Stack becomes empty, which means we have visited all the nodes, and our
  <li>If Not Visited, add it to the STACK. Else Call The Function Again Until No more nodes needs to be visited.</li>
 </ol></B>
 
-## PROGRAM:
-
-```
+## Program
+```python
+from collections import deque
 from collections import defaultdict
 
-def dfs(graph, start, visited, path):
+def dfs(graph,start,visited,path):
     path.append(start)
-    visited[start] = True
+    visited[start]=True
     for neighbour in graph[start]:
-        if not visited[neighbour]:
-            dfs(graph, neighbour,
-                visited, path)
+        if visited[neighbour]==False:
+            dfs(graph,neighbour,visited,path)
+            visited[neighbour]=True
     return path
-
-graph = defaultdict(list)
-n, e = map(int, input("Enter the number of nodes and edges: ").split())
-
+graph=defaultdict(list)
+n,e=map(int,input().split())
 for i in range(e):
-    u, v = input(f"Enter edge {i+1} (u v): ").split()
+    u,v=map(str,input().split())
     graph[u].append(v)
-    graph[v].append(u)  # If the graph is undirected; remove this line for a directed graph
-
-if '0' in graph:
-    start = '0'
-else:
-    start = 'A'
-#Starting node
-visited = defaultdict(bool)
-path = []
-
-traversed_path = dfs(graph, start, visited, path)
-print("DFS Traversal Path:", traversed_path)
-
+    graph[v].append(u)
+#print(graph)
+start='A'
+visited=defaultdict(bool)
+path=[]
+traversedpath=dfs(graph,start,visited,path)
+print(traversedpath)
 ```
 
+<hr>
+<h3>Sample Input</h3>
+<hr>
+8 9 <BR>
+A B <BR>
+A C <BR>
+B E <BR>
+C D <BR>
+B D <BR>
+C G <BR>
+D F <BR>
+G F <BR>
+F H <BR>
+<hr>
+<h3>Sample Output</h3>
+<hr>
+['A', 'B', 'E', 'D', 'C', 'G', 'F', 'H']
 
-## Sample Input
-![image](https://github.com/user-attachments/assets/6ef88f45-ce74-4da6-9d8d-01c45119aa7b)
+<hr>
 
-## Sample Output
-![image](https://github.com/user-attachments/assets/ae7dbae2-6576-4d73-ae3d-2fc5c6114067)
-
-
-
-## Sample Input
-![image](https://github.com/user-attachments/assets/6b8a1087-fb53-4d5e-8c91-b36166cdd226)
-
-## Sample Output
-![image](https://github.com/user-attachments/assets/80609c6d-8b1d-4010-8c25-55bdee9dd501)
-
+<hr>
+<h3>Sample Input</h3>
+<hr>
+5 5 <BR>
+0 1 <BR>
+0 2 <BR>
+0 3 <BR>
+2 3 <BR>
+2 4 <BR>
+<hr>
+<h3>Sample Output</h3>
+<hr>
+['0', '1', '2', '3', '4']
+<hr>
 <h3>Result:</h3>
 <hr>
 <p>Thus,a Graph was constructed and implementation of Depth First Search for the same graph was done successfully.</p>
+
 
